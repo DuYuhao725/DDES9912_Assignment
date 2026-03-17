@@ -14,15 +14,29 @@ public class ReelController : MonoBehaviour
 
     [Header("Spin Settings")]
     public float spinDuration = 2f;
-    public float spinSpeed = 800f;
+    public float spinSpeed = 720f;
 
     private int result1;
     private int result2;
     private int result3;
     private int result4;
 
+    private Quaternion reel1BaseRotation;
+    private Quaternion reel2BaseRotation;
+    private Quaternion reel3BaseRotation;
+    private Quaternion reel4BaseRotation;
+
+    void Start()
+    {
+        if (reel1 != null) reel1BaseRotation = reel1.localRotation;
+        if (reel2 != null) reel2BaseRotation = reel2.localRotation;
+        if (reel3 != null) reel3BaseRotation = reel3.localRotation;
+        if (reel4 != null) reel4BaseRotation = reel4.localRotation;
+    }
+
     public void StartReelSpin()
     {
+        StopAllCoroutines();
         StartCoroutine(SpinReelsCoroutine());
     }
 
@@ -34,10 +48,10 @@ public class ReelController : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            if (reel1 != null) reel1.Rotate(Vector3.right * spinSpeed * Time.deltaTime);
-            if (reel2 != null) reel2.Rotate(Vector3.right * spinSpeed * Time.deltaTime);
-            if (reel3 != null) reel3.Rotate(Vector3.right * spinSpeed * Time.deltaTime);
-            if (reel4 != null) reel4.Rotate(Vector3.right * spinSpeed * Time.deltaTime);
+            if (reel1 != null) reel1.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            if (reel2 != null) reel2.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            if (reel3 != null) reel3.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            if (reel4 != null) reel4.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
 
             yield return null;
         }
@@ -47,15 +61,15 @@ public class ReelController : MonoBehaviour
 
     void StopReelsAndGenerateResult()
     {
-        result1 = Random.Range(0, 3);
-        result2 = Random.Range(0, 3);
-        result3 = Random.Range(0, 3);
-        result4 = Random.Range(0, 3);
+        result1 = Random.Range(0, 4);
+        result2 = Random.Range(0, 4);
+        result3 = Random.Range(0, 4);
+        result4 = Random.Range(0, 4);
 
-        if (reel1 != null) reel1.rotation = Quaternion.Euler(result1 * 90f, 0f, 0f);
-        if (reel2 != null) reel2.rotation = Quaternion.Euler(result2 * 90f, 0f, 0f);
-        if (reel3 != null) reel3.rotation = Quaternion.Euler(result3 * 90f, 0f, 0f);
-        if (reel4 != null) reel4.rotation = Quaternion.Euler(result4 * 90f, 0f, 0f);
+        SetReelToResult(reel1, reel1BaseRotation, result1);
+        SetReelToResult(reel2, reel2BaseRotation, result2);
+        SetReelToResult(reel3, reel3BaseRotation, result3);
+        SetReelToResult(reel4, reel4BaseRotation, result4);
 
         string resultMessage = CheckResult();
 
@@ -63,6 +77,14 @@ public class ReelController : MonoBehaviour
         {
             machineController.FinishSpin(resultMessage);
         }
+    }
+
+    void SetReelToResult(Transform reel, Quaternion baseRotation, int result)
+    {
+        if (reel == null) return;
+
+        Quaternion extraRotation = Quaternion.AngleAxis(result * 90f, Vector3.up);
+        reel.localRotation = baseRotation * extraRotation;
     }
 
     string CheckResult()
