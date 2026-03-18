@@ -1083,7 +1083,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteractLift.m_PersistentCalls.m_Calls.Array.size
@@ -1094,9 +1094,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 993158498}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1672775394}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteractLift.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
@@ -1110,8 +1118,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PowerOnMachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_intensity
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteractLift.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1142,6 +1158,14 @@ PrefabInstance:
       value: MachineController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Light, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteractLift.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
@@ -1159,6 +1183,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
+      propertyPath: onPrimaryInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 66417939332589506, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
@@ -2952,7 +2980,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  m_Intensity: 15
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 69.1591
   m_InnerSpotAngle: 63.560608
