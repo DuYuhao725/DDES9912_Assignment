@@ -12,6 +12,9 @@ public class ReelController : MonoBehaviour
     [Header("Machine Reference")]
     public MachineController machineController;
 
+    [Header("Coin / Money Box Reference")]
+    public CoinSlotTrigger coinSlot;
+
     [Header("Spin Settings")]
     public float spinDuration = 2f;
     public float spinSpeed = 720f;
@@ -26,6 +29,8 @@ public class ReelController : MonoBehaviour
     private Quaternion reel3BaseRotation;
     private Quaternion reel4BaseRotation;
 
+    private bool isSpinning = false;
+
     void Start()
     {
         if (reel1 != null) reel1BaseRotation = reel1.localRotation;
@@ -36,6 +41,20 @@ public class ReelController : MonoBehaviour
 
     public void StartReelSpin()
     {
+        // Prevent the player from starting another spin while reels are already spinning
+        if (isSpinning)
+        {
+            return;
+        }
+
+        // Check whether the machine has one $2 credit before spinning
+        if (coinSlot == null || !coinSlot.UseCredit())
+        {
+            return;
+        }
+
+        isSpinning = true;
+
         StopAllCoroutines();
         StartCoroutine(SpinReelsCoroutine());
     }
@@ -77,6 +96,8 @@ public class ReelController : MonoBehaviour
         {
             machineController.FinishSpin(resultMessage);
         }
+
+        isSpinning = false;
     }
 
     void SetReelToResult(Transform reel, Quaternion baseRotation, int result)

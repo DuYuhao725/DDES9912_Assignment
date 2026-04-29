@@ -4161,6 +4161,7 @@ MonoBehaviour:
   reel3: {fileID: 6797041}
   reel4: {fileID: 1995620257}
   machineController: {fileID: 993158498}
+  coinSlot: {fileID: 1138051832}
   spinDuration: 2
   spinSpeed: 800
 --- !u!1 &1587091885
