@@ -12,18 +12,33 @@ public class MachineController : MonoBehaviour
     [Header("Reel Controller")]
     public ReelController reelController;
 
+    [Header("Atmosphere Lights")]
+    public GameObject atmosphereLights;
+
     [Header("Machine State")]
     public bool machineStarted = false;
 
     void Start()
     {
         machineStarted = false;
+
+        if (atmosphereLights != null)
+        {
+            atmosphereLights.SetActive(false);
+        }
+
         ShowPowerOffUI();
     }
 
     public void StartMachine()
     {
         machineStarted = true;
+
+        if (atmosphereLights != null)
+        {
+            atmosphereLights.SetActive(true);
+        }
+
         ShowReadyUI();
     }
 
@@ -40,6 +55,12 @@ public class MachineController : MonoBehaviour
     public void PowerOff()
     {
         machineStarted = false;
+
+        if (atmosphereLights != null)
+        {
+            atmosphereLights.SetActive(false);
+        }
+
         ShowPowerOffUI();
     }
 
