@@ -5,6 +5,9 @@ public class CoinSlotTrigger : MonoBehaviour
 {
     public TMP_Text statusText;
 
+    [Header("Machine Reference")]
+    public MachineController machineController;
+
     [Header("Credit System")]
     public int credits = 0;
 
@@ -33,6 +36,16 @@ public class CoinSlotTrigger : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
+            if (machineController != null && !machineController.IsMachineStarted())
+            {
+                if (statusText != null)
+                {
+                    statusText.text = "Press START First";
+                }
+
+                return;
+            }
+
             credits += 1;
 
             if (coinSound != null)
@@ -53,6 +66,16 @@ public class CoinSlotTrigger : MonoBehaviour
 
     public bool UseCredit()
     {
+        if (machineController != null && !machineController.IsMachineStarted())
+        {
+            if (statusText != null)
+            {
+                statusText.text = "Press START First";
+            }
+
+            return false;
+        }
+
         if (credits > 0)
         {
             credits -= 1;

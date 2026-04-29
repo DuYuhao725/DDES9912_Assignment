@@ -45,11 +45,20 @@ public class ReelController : MonoBehaviour
 
     public void StartReelSpin()
     {
+        // Prevent repeated clicks while the reels are already spinning
         if (isSpinning)
         {
             return;
         }
 
+        // The player must press the Start Button before using the machine
+        if (machineController != null && !machineController.IsMachineStarted())
+        {
+            machineController.ShowMessage("Press START First");
+            return;
+        }
+
+        // The player must insert one $2 coin before each spin
         if (coinSlot == null || !coinSlot.UseCredit())
         {
             return;
@@ -69,10 +78,25 @@ public class ReelController : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            if (reel1 != null) reel1.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
-            if (reel2 != null) reel2.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
-            if (reel3 != null) reel3.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
-            if (reel4 != null) reel4.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            if (reel1 != null)
+            {
+                reel1.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            }
+
+            if (reel2 != null)
+            {
+                reel2.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            }
+
+            if (reel3 != null)
+            {
+                reel3.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            }
+
+            if (reel4 != null)
+            {
+                reel4.Rotate(Vector3.up, spinSpeed * Time.deltaTime, Space.Self);
+            }
 
             yield return null;
         }
@@ -119,7 +143,10 @@ public class ReelController : MonoBehaviour
 
     void SetReelToResult(Transform reel, Quaternion baseRotation, int result)
     {
-        if (reel == null) return;
+        if (reel == null)
+        {
+            return;
+        }
 
         Quaternion extraRotation = Quaternion.AngleAxis(result * 90f, Vector3.up);
         reel.localRotation = baseRotation * extraRotation;

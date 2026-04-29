@@ -2854,13 +2854,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abbc1610a9b45cc48a071171e4ac5005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MachineController
-  isPoweredOn: 0
-  canSpin: 0
-  isSpinning: 0
-  machineStatus: OFF
+  mainText: {fileID: 0}
   statusText: {fileID: 441748790}
-  messageText: {fileID: 1375601869}
+  instructionText: {fileID: 1375601869}
   resultText: {fileID: 977889787}
+  reelController: {fileID: 1452295703}
+  machineStarted: 0
 --- !u!1 &1018762918
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,6 +3549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinSlotTrigger
   statusText: {fileID: 1997013630}
+  machineController: {fileID: 0}
   credits: 0
   readyLightObject: {fileID: 177377375}
   readyPointLight: {fileID: 1313671450}
