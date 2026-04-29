@@ -19,6 +19,11 @@ public class ReelController : MonoBehaviour
     public AudioSource winSound;
     public AudioSource errorSound;
 
+    [Header("Reward Output")]
+    public GameObject rewardPrefab;
+    public Transform prizeSpawnPoint;
+    public float rewardPushForce = 2f;
+
     [Header("Spin Settings")]
     public float spinDuration = 2f;
     public float spinSpeed = 720f;
@@ -45,20 +50,17 @@ public class ReelController : MonoBehaviour
 
     public void StartReelSpin()
     {
-        // Prevent repeated clicks while the reels are already spinning
         if (isSpinning)
         {
             return;
         }
 
-        // The player must press the Start Button before using the machine
         if (machineController != null && !machineController.IsMachineStarted())
         {
             machineController.ShowMessage("Press START First");
             return;
         }
 
-        // The player must insert one $2 coin before each spin
         if (coinSlot == null || !coinSlot.UseCredit())
         {
             return;
@@ -124,6 +126,8 @@ public class ReelController : MonoBehaviour
             {
                 winSound.Play();
             }
+
+            SpawnReward();
         }
         else
         {
@@ -139,6 +143,27 @@ public class ReelController : MonoBehaviour
         }
 
         isSpinning = false;
+    }
+
+    void SpawnReward()
+    {
+        if (rewardPrefab == null || prizeSpawnPoint == null)
+        {
+            return;
+        }
+
+        GameObject reward = Instantiate(
+            rewardPrefab,
+            prizeSpawnPoint.position,
+            prizeSpawnPoint.rotation
+        );
+
+        Rigidbody rb = reward.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.AddForce(prizeSpawnPoint.forward * rewardPushForce, ForceMode.Impulse);
+        }
     }
 
     void SetReelToResult(Transform reel, Quaternion baseRotation, int result)
@@ -158,7 +183,11 @@ public class ReelController : MonoBehaviour
         {
             return "BIG WIN!";
         }
-        else if (result1 == result2 && result2 == result3)
+        else if (
+            result1 == result2 ||
+            result1 == result3 ||
+            result2 == result3
+        )
         {
             return "SMALL WIN!";
         }
