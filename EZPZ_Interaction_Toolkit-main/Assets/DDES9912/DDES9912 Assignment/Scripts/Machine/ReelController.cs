@@ -15,6 +15,10 @@ public class ReelController : MonoBehaviour
     [Header("Coin / Money Box Reference")]
     public CoinSlotTrigger coinSlot;
 
+    [Header("Sound Effects")]
+    public AudioSource winSound;
+    public AudioSource errorSound;
+
     [Header("Spin Settings")]
     public float spinDuration = 2f;
     public float spinSpeed = 720f;
@@ -41,13 +45,11 @@ public class ReelController : MonoBehaviour
 
     public void StartReelSpin()
     {
-        // Prevent the player from starting another spin while reels are already spinning
         if (isSpinning)
         {
             return;
         }
 
-        // Check whether the machine has one $2 credit before spinning
         if (coinSlot == null || !coinSlot.UseCredit())
         {
             return;
@@ -91,6 +93,21 @@ public class ReelController : MonoBehaviour
         SetReelToResult(reel4, reel4BaseRotation, result4);
 
         string resultMessage = CheckResult();
+
+        if (resultMessage == "BIG WIN!" || resultMessage == "SMALL WIN!")
+        {
+            if (winSound != null)
+            {
+                winSound.Play();
+            }
+        }
+        else
+        {
+            if (errorSound != null)
+            {
+                errorSound.Play();
+            }
+        }
 
         if (machineController != null)
         {
