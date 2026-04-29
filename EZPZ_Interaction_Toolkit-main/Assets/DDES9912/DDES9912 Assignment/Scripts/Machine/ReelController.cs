@@ -24,6 +24,9 @@ public class ReelController : MonoBehaviour
     public Transform prizeSpawnPoint;
     public float rewardPushForce = 2f;
 
+    [Header("Machine Data Display")]
+    public MachineDataDisplay dataDisplay;
+
     [Header("Spin Settings")]
     public float spinDuration = 2f;
     public float spinSpeed = 720f;
@@ -127,6 +130,11 @@ public class ReelController : MonoBehaviour
                 winSound.Play();
             }
 
+            if (dataDisplay != null)
+            {
+                dataDisplay.SetRewardOutput("Yes");
+            }
+
             SpawnReward();
         }
         else
@@ -134,6 +142,11 @@ public class ReelController : MonoBehaviour
             if (errorSound != null)
             {
                 errorSound.Play();
+            }
+
+            if (dataDisplay != null)
+            {
+                dataDisplay.SetRewardOutput("No");
             }
         }
 

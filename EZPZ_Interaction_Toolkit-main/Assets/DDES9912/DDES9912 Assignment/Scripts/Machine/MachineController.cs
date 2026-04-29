@@ -15,6 +15,9 @@ public class MachineController : MonoBehaviour
     [Header("Atmosphere Lights")]
     public GameObject atmosphereLights;
 
+    [Header("Machine Data Display")]
+    public MachineDataDisplay dataDisplay;
+
     [Header("Machine State")]
     public bool machineStarted = false;
 
@@ -27,6 +30,14 @@ public class MachineController : MonoBehaviour
             atmosphereLights.SetActive(false);
         }
 
+        if (dataDisplay != null)
+        {
+            dataDisplay.SetMachineStatus("OFF");
+            dataDisplay.SetCurrentBalance(0);
+            dataDisplay.SetLastResult("None");
+            dataDisplay.SetRewardOutput("No");
+        }
+
         ShowPowerOffUI();
     }
 
@@ -37,6 +48,11 @@ public class MachineController : MonoBehaviour
         if (atmosphereLights != null)
         {
             atmosphereLights.SetActive(true);
+        }
+
+        if (dataDisplay != null)
+        {
+            dataDisplay.SetMachineStatus("READY");
         }
 
         ShowReadyUI();
@@ -59,6 +75,13 @@ public class MachineController : MonoBehaviour
         if (atmosphereLights != null)
         {
             atmosphereLights.SetActive(false);
+        }
+
+        if (dataDisplay != null)
+        {
+            dataDisplay.SetMachineStatus("OFF");
+            dataDisplay.SetLastResult("None");
+            dataDisplay.SetRewardOutput("No");
         }
 
         ShowPowerOffUI();
@@ -137,6 +160,11 @@ public class MachineController : MonoBehaviour
         if (resultText != null)
         {
             resultText.text = "Result: " + resultMessage;
+        }
+
+        if (dataDisplay != null)
+        {
+            dataDisplay.SetLastResult(resultMessage);
         }
     }
 

@@ -21,6 +21,9 @@ public class CoinSlotTrigger : MonoBehaviour
     [Header("Sound")]
     public AudioSource coinSound;
 
+    [Header("Machine Data Display")]
+    public MachineDataDisplay dataDisplay;
+
     private Renderer readyLightRenderer;
 
     void Start()
@@ -97,9 +100,16 @@ public class CoinSlotTrigger : MonoBehaviour
 
     private void UpdateMoneyDisplay()
     {
+        int balance = GetCurrentMoney();
+
         if (statusText != null)
         {
-            statusText.text = "Current Balance: $" + GetCurrentMoney();
+            statusText.text = "Current Balance: $" + balance;
+        }
+
+        if (dataDisplay != null)
+        {
+            dataDisplay.SetCurrentBalance(balance);
         }
     }
 
