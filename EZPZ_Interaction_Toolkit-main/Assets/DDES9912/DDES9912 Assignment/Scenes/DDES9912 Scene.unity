@@ -3549,8 +3549,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinSlotTrigger
   statusText: {fileID: 1997013630}
-  machineController: {fileID: 0}
+  machineController: {fileID: 993158498}
   credits: 0
+  coinValue: 2
   readyLightObject: {fileID: 177377375}
   readyPointLight: {fileID: 1313671450}
   readyLightOnMaterial: {fileID: 2100000, guid: 919a08484b1da1e429a1381cc712e143, type: 2}

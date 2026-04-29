@@ -10,6 +10,7 @@ public class CoinSlotTrigger : MonoBehaviour
 
     [Header("Credit System")]
     public int credits = 0;
+    public int coinValue = 2;
 
     [Header("Ready Light")]
     public GameObject readyLightObject;
@@ -29,6 +30,7 @@ public class CoinSlotTrigger : MonoBehaviour
             readyLightRenderer = readyLightObject.GetComponent<Renderer>();
         }
 
+        UpdateMoneyDisplay();
         UpdateReadyLight();
     }
 
@@ -53,13 +55,9 @@ public class CoinSlotTrigger : MonoBehaviour
                 coinSound.Play();
             }
 
-            if (statusText != null)
-            {
-                statusText.text = "Credit Added: $2\nSpin Available";
-            }
-
             Destroy(other.gameObject);
 
+            UpdateMoneyDisplay();
             UpdateReadyLight();
         }
     }
@@ -80,24 +78,29 @@ public class CoinSlotTrigger : MonoBehaviour
         {
             credits -= 1;
 
-            if (statusText != null)
-            {
-                statusText.text = "Credit Used\nSpinning...";
-            }
-
+            UpdateMoneyDisplay();
             UpdateReadyLight();
 
             return true;
         }
 
-        if (statusText != null)
-        {
-            statusText.text = "Insert $2 Coin First";
-        }
-
+        UpdateMoneyDisplay();
         UpdateReadyLight();
 
         return false;
+    }
+
+    private int GetCurrentMoney()
+    {
+        return credits * coinValue;
+    }
+
+    private void UpdateMoneyDisplay()
+    {
+        if (statusText != null)
+        {
+            statusText.text = "Current Balance: $" + GetCurrentMoney();
+        }
     }
 
     private void UpdateReadyLight()
